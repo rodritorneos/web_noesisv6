@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Pronunciation App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            margin: 20px auto;
+            max-width: 500px;
+        }
+
+        .card-wide {
+            max-width: 900px;
+        }
+
+        .icon {
+            text-align: center;
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+
+        h2 {
+            color: #555;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-success {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #38a169;
+        }
+
+        .btn-danger {
+            background: #f56565;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: white;
+        }
+
+        .btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+        }
+
+        .link-btn {
+            text-align: center;
+            margin-top: 20px;
+            color: #667eea;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .alert-error {
+            background: #fed7d7;
+            color: #c53030;
+            border: 1px solid #fc8181;
+        }
+
+        .alert-success {
+            background: #c6f6d5;
+            color: #2f855a;
+            border: 1px solid #9ae6b4;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .landing-btn {
+            padding: 30px;
+            text-align: center;
+            background: #667eea;
+            color: white;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 18px;
+        }
+
+        .landing-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .landing-btn.teacher {
+            background: #9f7aea;
+        }
+
+        .navbar {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .sentence-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+
+        .result-box {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .result-box p {
+            margin: 10px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .student-list {
+            margin-top: 20px;
+        }
+
+        .student-item {
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .student-item:hover {
+            background: #edf2f7;
+            transform: translateX(5px);
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            flex: 1;
+        }
+
+        .profile-icon {
+            width: 100px;
+            height: 100px;
+            background: #667eea;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #667eea;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landingPage" class="container">
+        <div class="card">
+            <div class="icon">🎤</div>
+            <h1>English Pronunciation App</h1>
+            <p class="subtitle">Mejora tu pronunciación en inglés con práctica guiada</p>
+            <div class="grid-2">
+                <button class="landing-btn" onclick="showLogin('student')">
+                    <div style="font-size: 40px; margin-bottom: 10px;">📚</div>
+                    <div>Soy Estudiante</div>
+                </button>
+                <button class="landing-btn teacher" onclick="showLogin('teacher')">
+                    <div style="font-size: 40px; margin-bottom: 10px;">👨‍🏫</div>
+                    <div>Soy Docente</div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="container hidden">
+        <div class="card">
+            <div class="icon">🔐</div>
+            <h1>Iniciar Sesión</h1>
+            <p class="subtitle" id="loginSubtitle">Estudiante</p>
+            <div id="loginError" class="alert alert-error hidden"></div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="loginEmail" placeholder="tu@email.com">
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" id="loginPassword" placeholder="••••••••">
+            </div>
+            <button class="btn btn-primary" onclick="login()">Iniciar Sesión</button>
+            <div class="link-btn" onclick="showRegister()">¿No tienes cuenta? Regístrate</div>
+            <div class="link-btn" onclick="showLanding()">Volver</div>
+        </div>
+    </div>
+
+    <!-- Register Page -->
+    <div id="registerPage" class="container hidden">
+        <div class="card">
+            <div class="icon">✍️</div>
+            <h1>Registro</h1>
+            <p class="subtitle" id="registerSubtitle">Estudiante</p>
+            <div id="registerError" class="alert alert-error hidden"></div>
+            <div id="registerSuccess" class="alert alert-success hidden"></div>
+            <div class="form-group">
+                <label>Nombre de usuario</label>
+                <input type="text" id="registerUsername" placeholder="tu_usuario">
+            </div>
+            <div class="form-group">
+                <label>Email <span id="emailHint"></span></label>
+                <input type="email" id="registerEmail" placeholder="tu@email.com">
+            </div>
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" id="registerPassword" placeholder="••••••••">
+            </div>
+            <button class="btn btn-success" onclick="register()">Registrarse</button>
+            <div class="link-btn" onclick="showLogin(currentUserType)">¿Ya tienes cuenta? Inicia sesión</div>
+        </div>
+    </div>
+
+    <!-- Student Dashboard -->
+    <div id="studentDashboard" class="hidden">
+        <div class="navbar">
+            <h2>🎤 English Pronunciation Practice</h2>
+            <div class="nav-links">
+                <a class="nav-link" onclick="showStudentHistory()">📊 Mi Progreso</a>
+                <a class="nav-link" onclick="showStudentProfile()">⚙️ Perfil</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="card card-wide">
+                <h2>Practica tu Pronunciación</h2>
+                <div class="form-group">
+                    <label>Selecciona un tema:</label>
+                    <select id="topicSelect">
+                        <option value="">-- Selecciona un tema --</option>
+                        <option value="Verb to be">Verb to be</option>
+                        <option value="Present Simple">Present Simple</option>
+                        <option value="The verb can">The verb can</option>
+                        <option value="Future Perfect">Future Perfect</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" onclick="generateSentence()">Generar Oración</button>
+                <div id="sentenceDisplay" class="hidden">
+                    <div class="sentence-display" id="sentenceText"></div>
+                    <button class="btn btn-success" onclick="analyzePronunciation()">🎤 Grabar y Analizar</button>
+                </div>
+                <div id="resultDisplay" class="hidden">
+                    <div class="result-box">
+                        <h3>Resultados:</h3>
+                        <p><strong>Transcripción:</strong> <span id="transcription"></span></p>
+                        <p><strong>Precisión:</strong> <span id="accuracy"></span>%</p>
+                        <p style="color: #667eea; font-size: 18px; font-weight: bold;" id="feedback"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student History -->
+    <div id="studentHistory" class="hidden">
+        <div class="navbar">
+            <h2>📊 Mi Progreso</h2>
+            <div class="nav-links">
+                <a class="nav-link" onclick="showStudentDashboard()">Volver a Práctica</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="card card-wide">
+                <h2>Estadísticas</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="myAvgScore">0</div>
+                        <div class="stat-label">Promedio</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: #48bb78;" id="myBestScore">0</div>
+                        <div class="stat-label">Mejor Puntaje</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: #f56565;" id="myWorstScore">0</div>
+                        <div class="stat-label">Menor Puntaje</div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 30px; margin-bottom: 15px;">Historial de Evaluaciones</h3>
+                <div id="myEvaluationHistory"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Profile -->
+    <div id="studentProfile" class="hidden">
+        <div class="navbar">
+            <h2>👤 Mi Perfil</h2>
+            <div class="nav-links">
+                <a class="nav-link" onclick="showStudentDashboard()">Volver a Práctica</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="card">
+                <div class="profile-icon">👤</div>
+                <h2 style="text-align: center;" id="studentUsername"></h2>
+                <p style="text-align: center; color: #666; margin-bottom: 30px;" id="studentEmail"></p>
+                <button class="btn btn-danger" onclick="logout()">🚪 Cerrar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher Dashboard -->
+    <div id="teacherDashboard" class="hidden">
+        <div class="navbar">
+            <h2>👨‍🏫 Dashboard Docente</h2>
+            <div class="nav-links">
+                <a class="nav-link" onclick="showTeacherProfile()">⚙️ Perfil</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="card card-wide">
+                <h2>Buscar Estudiantes</h2>
+                <div class="search-bar">
+                    <input type="text" id="searchQuery" placeholder="Buscar por nombre o email...">
+                    <button class="btn btn-primary" onclick="searchStudents()" style="width: auto; padding: 12px 30px;">🔍 Buscar</button>
+                </div>
+            </div>
+            <div class="card card-wide">
+                <h2>🏆 Top Estudiantes</h2>
+                <div id="studentsList" class="student-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teacher Profile -->
+    <div id="teacherProfile" class="hidden">
+        <div class="navbar">
+            <h2>👤 Perfil Docente</h2>
+            <div class="nav-links">
+                <a class="nav-link" onclick="showTeacherDashboard()">Volver al Dashboard</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="card">
+                <div class="profile-icon">👨‍🏫</div>
+                <h2 style="text-align: center;" id="teacherUsername"></h2>
+                <p style="text-align: center; color: #666;" id="teacherEmail"></p>
+                <p style="text-align: center; color: #999; margin-bottom: 30px;" id="teacherInstitution"></p>
+                <button class="btn btn-danger" onclick="logout()">🚪 Cerrar Sesión</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Details -->
+    <div id="studentDetails" class="hidden">
+        <div class="navbar">
+            <h2>📊 Detalles del Estudiante</h2>
+            <div class="nav-links">
+                <a class="nav-link" onclick="showTeacherDashboard()">Volver</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="card card-wide">
+                <h2 id="detailStudentName"></h2>
+                <p style="color: #666; margin-bottom: 20px;" id="detailStudentEmail"></p>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="avgScore">0</div>
+                        <div class="stat-label">Promedio</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: #48bb78;" id="bestScore">0</div>
+                        <div class="stat-label">Mejor Puntaje</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" style="color: #f56565;" id="worstScore">0</div>
+                        <div class="stat-label">Menor Puntaje</div>
+                    </div>
+                </div>
+                <h3 style="margin-top: 30px; margin-bottom: 15px;">Historial de Evaluaciones</h3>
+                <div id="evaluationHistory"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8000';
+        let currentUserType = 'student';
+        let currentUserEmail = '';
+
+        function showLanding() {
+            hideAll();
+            document.getElementById('landingPage').classList.remove('hidden');
+        }
+
+        function showLogin(userType) {
+            currentUserType = userType;
+            hideAll();
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('loginSubtitle').textContent = userType === 'student' ? 'Estudiante' : 'Docente';
+        }
+
+        function showRegister() {
+            hideAll();
+            document.getElementById('registerPage').classList.remove('hidden');
+            document.getElementById('registerSubtitle').textContent = currentUserType === 'student' ? 'Estudiante' : 'Docente';
+            document.getElementById('emailHint').textContent = currentUserType === 'teacher' ? '(@ccjcallao.edu.pe)' : '';
+        }
+
+        function showStudentDashboard() {
+            hideAll();
+            document.getElementById('studentDashboard').classList.remove('hidden');
+        }
+
+        function showStudentProfile() {
+            hideAll();
+            fetchUserInfo();
+            document.getElementById('studentProfile').classList.remove('hidden');
+        }
+
+        function showTeacherDashboard() {
+            hideAll();
+            document.getElementById('teacherDashboard').classList.remove('hidden');
+            fetchTopStudents();
+        }
+
+        function showTeacherProfile() {
+            hideAll();
+            fetchTeacherInfo();
+            document.getElementById('teacherProfile').classList.remove('hidden');
+        }
+
+        function hideAll() {
+            const pages = ['landingPage', 'loginPage', 'registerPage', 'studentDashboard', 'studentProfile', 'studentHistory', 'teacherDashboard', 'teacherProfile', 'studentDetails'];
+            pages.forEach(page => document.getElementById(page).classList.add('hidden'));
+        }
+
+        async function login() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const errorDiv = document.getElementById('loginError');
+
+            try {
+                const endpoint = currentUserType === 'student' ? '/usuarios/login' : '/docentes/login';
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (!response.ok) {
+                    const data = await response.json();
+                    throw new Error(data.detail || 'Error al iniciar sesión');
+                }
+
+                currentUserEmail = email;
+                errorDiv.classList.add('hidden');
+                
+                if (currentUserType === 'student') {
+                    showStudentDashboard();
+                } else {
+                    showTeacherDashboard();
+                }
+            } catch (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.classList.remove('hidden');
+            }
+        }
+
+        async function register() {
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const errorDiv = document.getElementById('registerError');
+            const successDiv = document.getElementById('registerSuccess');
+
+            try {
+                const endpoint = currentUserType === 'student' ? '/usuarios/registro' : '/docentes/registro';
+                const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                if (!response.ok) {
+                    const data = await response.json();
+                    throw new Error(data.detail || 'Error al registrar');
+                }
+
+                errorDiv.classList.add('hidden');
+                successDiv.textContent = '¡Registro exitoso! Redirigiendo...';
+                successDiv.classList.remove('hidden');
+                
+                setTimeout(() => showLogin(currentUserType), 2000);
+            } catch (error) {
+                errorDiv.textContent = error.message;
+                errorDiv.classList.remove('hidden');
+                successDiv.classList.add('hidden');
+            }
+        }
+
+        async function fetchUserInfo() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/usuarios/${currentUserEmail}`);
+                const data = await response.json();
+                document.getElementById('studentUsername').textContent = data.username;
+                document.getElementById('studentEmail').textContent = data.email;
+            } catch (error) {
+                console.error('Error fetching user info:', error);
+            }
+        }
+
+        async function fetchTeacherInfo() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/docentes/${currentUserEmail}`);
+                const data = await response.json();
+                document.getElementById('teacherUsername').textContent = data.username;
+                document.getElementById('teacherEmail').textContent = data.email;
+                document.getElementById('teacherInstitution').textContent = data.institucion;
+            } catch (error) {
+                console.error('Error fetching teacher info:', error);
+            }
+        }
+
+        async function generateSentence() {
+            const topic = document.getElementById('topicSelect').value;
+            if (!topic) {
+                alert('Por favor selecciona un tema');
+                return;
+            }
+
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '⏳ Generando oración...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/generar_oracion/${topic}`);
+                const data = await response.json();
+                
+                document.getElementById('sentenceText').textContent = data.frase;
+                document.getElementById('sentenceDisplay').classList.remove('hidden');
+                document.getElementById('resultDisplay').classList.add('hidden');
+            } catch (error) {
+                alert('Error al generar oración: ' + error.message);
+            } finally {
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        let mediaRecorder;
+        let audioChunks = [];
+        let isRecording = false;
+
+        async function analyzePronunciation() {
+            const sentence = document.getElementById('sentenceText').textContent;
+            if (!sentence) return;
+
+            const btn = event.target;
+
+            if (!isRecording) {
+                // Iniciar grabación
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    mediaRecorder = new MediaRecorder(stream);
+                    audioChunks = [];
+
+                    mediaRecorder.ondataavailable = (event) => {
+                        audioChunks.push(event.data);
+                    };
+
+                    mediaRecorder.onstop = async () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        await sendAudioToBackend(audioBlob, sentence);
+                        
+                        // Detener el stream
+                        stream.getTracks().forEach(track => track.stop());
+                    };
+
+                    mediaRecorder.start();
+                    isRecording = true;
+                    btn.textContent = '⏹️ Detener Grabación';
+                    btn.classList.remove('btn-success');
+                    btn.classList.add('btn-danger');
+                    
+                    // Auto-detener después de 10 segundos
+                    setTimeout(() => {
+                        if (isRecording) {
+                            stopRecording(btn);
+                        }
+                    }, 10000);
+
+                } catch (error) {
+                    alert('Error al acceder al micrófono: ' + error.message);
+                    console.error('Error:', error);
+                }
+            } else {
+                stopRecording(btn);
+            }
+        }
+
+        function stopRecording(btn) {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+                btn.textContent = '⏳ Analizando...';
+                btn.disabled = true;
+            }
+        }
+
+        async function sendAudioToBackend(audioBlob, sentence) {
+            const btn = document.querySelector('#sentenceDisplay .btn-success, #sentenceDisplay .btn-danger');
+            
+            try {
+                // Crear FormData con el audio y la frase
+                const formData = new FormData();
+                formData.append('audio', audioBlob, 'recording.wav');
+                formData.append('frase', sentence);
+                formData.append('usuario_email', currentUserEmail);
+
+                // Enviar al backend REAL
+                const response = await fetch(`${API_BASE_URL}/analizar_pronunciacion_audio/`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    throw new Error('Error al procesar el audio');
+                }
+
+                const result = await response.json();
+
+                // Mostrar resultados reales del backend
+                document.getElementById('transcription').textContent = result.transcripcion || 'No se pudo transcribir';
+                document.getElementById('accuracy').textContent = result.porcentaje;
+                document.getElementById('feedback').textContent = result.feedback;
+                document.getElementById('resultDisplay').classList.remove('hidden');
+
+                // Notificar que se guardó en la base de datos
+                if (result.guardado) {
+                    console.log('✅ Evaluación guardada en la base de datos');
+                }
+
+            } catch (error) {
+                alert('Error al analizar pronunciación: ' + error.message);
+                console.error('Error completo:', error);
+            } finally {
+                btn.textContent = '🎤 Grabar y Analizar';
+                btn.disabled = false;
+                btn.classList.remove('btn-danger');
+                btn.classList.add('btn-success');
+            }
+        }
+
+        async function fetchTopStudents() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/docentes/1/top-5-estudiantes`);
+                const students = await response.json();
+                
+                const listDiv = document.getElementById('studentsList');
+                listDiv.innerHTML = '';
+
+                if (students.length === 0) {
+                    listDiv.innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">No se encontraron estudiantes</p>';
+                    return;
+                }
+
+                students.forEach((student, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'student-item';
+                    item.onclick = () => viewStudentDetails(student.id);
+                    item.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <span style="font-size: 24px; font-weight: bold; color: #cbd5e0;">#${index + 1}</span>
+                            <div>
+                                <div style="font-weight: 600;">${student.username || 'Usuario'}</div>
+                                <div style="font-size: 14px; color: #718096;">${student.email || ''}</div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="font-size: 24px; font-weight: bold; color: #667eea;">${(student.puntaje_promedio || 0).toFixed(1)}%</div>
+                            <div style="font-size: 12px; color: #718096;">Promedio</div>
+                        </div>
+                    `;
+                    listDiv.appendChild(item);
+                });
+            } catch (error) {
+                console.error('Error fetching students:', error);
+            }
+        }
+
+        async function searchStudents() {
+            const query = document.getElementById('searchQuery').value;
+            if (!query.trim()) return;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/docentes/1/buscar-estudiante?query=${query}`);
+                const students = await response.json();
+                
+                const listDiv = document.getElementById('studentsList');
+                listDiv.innerHTML = '';
+
+                if (students.length === 0) {
+                    listDiv.innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">No se encontraron estudiantes</p>';
+                    return;
+                }
+
+                students.forEach((student, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'student-item';
+                    item.onclick = () => viewStudentDetails(student.id);
+                    item.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div>
+                                <div style="font-weight: 600;">${student.username}</div>
+                                <div style="font-size: 14px; color: #718096;">${student.email}</div>
+                            </div>
+                        </div>
+                        <div style="color: #667eea; font-weight: 600;">Ver detalles →</div>
+                    `;
+                    listDiv.appendChild(item);
+                });
+            } catch (error) {
+                console.error('Error searching students:', error);
+            }
+        }
+
+        async function viewStudentDetails(studentId) {
+            try {
+                const response = await fetch(`${API_BASE_URL}/docentes/1/estudiante/${studentId}/detalles`);
+                const data = await response.json();
+                
+                document.getElementById('detailStudentName').textContent = data.username;
+                document.getElementById('detailStudentEmail').textContent = data.email;
+                document.getElementById('avgScore').textContent = data.estadisticas_progreso.promedio.toFixed(1) + '%';
+                document.getElementById('bestScore').textContent = data.estadisticas_progreso.mejor_puntaje + '%';
+                document.getElementById('worstScore').textContent = data.estadisticas_progreso.peor_puntaje + '%';
+                
+                const historyDiv = document.getElementById('evaluationHistory');
+                historyDiv.innerHTML = '';
+
+                if (data.historial_evaluaciones.length === 0) {
+                    historyDiv.innerHTML = '<p style="text-align: center; color: #999; padding: 40px;">No hay evaluaciones registradas</p>';
+                } else {
+                    data.historial_evaluaciones.forEach(eval => {
+                        const evalItem = document.createElement('div');
+                        evalItem.style.cssText = 'background: #f7fafc; padding: 15px; border-radius: 10px; margin-bottom: 10px;';
+                        evalItem.innerHTML = `
+                            <p style="font-weight: 600; margin-bottom: 5px;">${eval.frase}</p>
+                            <p style="font-size: 14px; color: #718096;">Puntaje: ${eval.puntaje}%</p>
+                            <p style="font-size: 14px; color: #667eea;">${eval.feedback}</p>
+                        `;
+                        historyDiv.appendChild(evalItem);
+                    });
+                }
+                
+                hideAll();
+                document.getElementById('studentDetails').classList.remove('hidden');
+            } catch (error) {
+                console.error('Error fetching student details:', error);
+                alert('Error al cargar los detalles del estudiante');
+            }
+        }
+
+        function logout() {
+            currentUserEmail = '';
+            showLanding();
+        }
+
+        // Initialize
+        showLanding();
+    </script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+# Ignorar bytecode de Python
+__pycache__/
+*.pyc
+
+# Ignorar entornos virtuales
+venv/
+ENV/
+env/
+
+# Ignorar archivos de bases de datos locales (si usas SQLite o similares)
+*.db
+*.sqlite3
+
+# Ignorar archivos temporales y de log
+*.log
+*.bak
+*.tmp
+
+# Ignorar archivos generados de dependencias
+Pipfile.lock
+*.egg-info/
+
+# Archivos generados por IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Ignorar archivos temporales de audio
+voz_ref.wav
+voz_user.wav
+voz_temp.mp3
+
+# Archivos de configuración de entorno (en caso de usar .env)
+*.env
+
+# Otros archivos generados que no deberían ir al repositorio
+*.sqlite
+
+/audios_guardados

@@ -37,4 +37,5 @@ voz_temp.mp3
 # Otros archivos generados que no deberían ir al repositorio
 *.sqlite
 
+# Carpeta de audios
 /audios_guardados
